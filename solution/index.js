@@ -154,7 +154,7 @@ function moveTask(list , arr ){
 }
 
 
-// show only the task with the same text of the search input
+// show only the tasks with the same text of the search input
 const searchEl = document.getElementById("search");
 searchEl.addEventListener("keyup" , searchTasks);
 function searchTasks(e){
