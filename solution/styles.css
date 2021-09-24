@@ -10,9 +10,7 @@ main{
     display: flex;
 }
 section{
-    display: flex; 
-    flex-direction: column;
-    margin: auto;
+ margin: auto;
 }
 .task{
     border: dotted 2px;
@@ -31,4 +29,6 @@ h1{
     background-color: yellow;
 
 } 
-
+.opening{
+    background-color: yellow;
+}
