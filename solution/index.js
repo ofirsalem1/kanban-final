@@ -155,15 +155,15 @@ function moveTask(list , arr ){
 
 
 // show only the task with the same text of the search input
-// const searchEl = document.getElementById("search");
-// searchEl.addEventListener("keyup" , searchTasks);
-// function searchTasks(e){
-//     let allLi = document.getElementsByClassName("task");
-//     for(let list of allLi){
-//         if(!list.innerText.includes(searchEl.value)){
-//         list.style.display = "none";
-//         }else{
-//             list.style.display = "";
-//         }
-//     }
-// }
+const searchEl = document.getElementById("search");
+searchEl.addEventListener("keyup" , searchTasks);
+function searchTasks(e){
+    let allLi = document.getElementsByClassName("task");
+    for(let list of allLi){
+        if(!list.innerText.includes(searchEl.value)){
+        list.style.display = "none";
+        }else{
+            list.style.display = "";
+        }
+    }
+}
