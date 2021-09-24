@@ -104,173 +104,66 @@ function saveEditText (input  , arr){
     if(input.innerText === "") return alert("You must enter content");
     arr.splice(indexOfOldTask,1,input.innerText);
     localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-    // const liEl = document.createElement("li");
-    // liEl.setAttribute("class", "task");
-    // liEl.innerText = input.value;
-    // list.insertBefore(liEl, list.firstChild);
 }
         
+// A function that takes an event, what you want to apply the event to, and what will happen when the event happens
+function addGlobalEventListener( type , selector , callback){
+    document.addEventListener(type , e => {
+    if (e.target.matches(selector)) callback(e);
+    })
+}
 
-let eTarget;
-
-addGlobalEventListener("mouseover" , "li" , myFunction)
-function myFunction(e){
+let eTarget; // the element that we need to remove
+// when the mouse over <li> addEventKeydown function will play
+addGlobalEventListener("mouseover" , "li" , addEventKeydown);
+// start to listen keydown event
+function addEventKeydown(e){
    eTarget = e.target;
    document.addEventListener("keydown" , altPress);
 }
-
-
-
-
+//find the ul we want to move the task to
 function altPress(el){
     if(el.altKey && el.key === "1" ){
         moveTask(toDoListEl , toDoArr);
     }
-        
-    //     if(eTarget.parentElement.className === "to-do-tasks"){
-    //         let i = toDoArr.indexOf(eTarget.innerText);
-    //         toDoArr.splice(i,1)
-    //      }
-    //     if(eTarget.parentElement.className === "in-progress-tasks"){
-    //        let i = inProgressArr.indexOf(eTarget.innerText);
-    //        inProgressArr.splice(i,1)
-    //     }
-    //     if(eTarget.parentElement.className === "done-tasks"){
-        //         let i = doneArr.indexOf(eTarget.innerText);
-        //         doneArr.splice(i,1)
-        //      }
-        
-        // toDoListEl.insertBefore(eTarget, toDoListEl.firstChild); // move the task in the dom
-        // toDoArr.unshift(eTarget.innerText); // move the task in the local storage
-    // localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-    
-    
-    // }
     if(el.altKey && el.key === "2" ){
         moveTask(inProgressListEl , inProgressArr);
     }
-        // inProgressListEl.insertBefore(eTarget, inProgressListEl.firstChild);
-        // inProgressArr.unshift(eTarget.innerText);
-        // localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-        // } 
-        if(el.altKey && el.key === "3" ){
-            moveTask(doneListEl , doneArr);
-        }
-            // doneListEl.insertBefore(eTarget, doneListEl.firstChild);
-            // doneArr.unshift(eTarget.innerText);
-            // localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-            // }  
-        }
+    if(el.altKey && el.key === "3" ){
+        moveTask(doneListEl , doneArr);
+    }
+}
+// delete the task from his old ul and add it to the new one
 function moveTask(list , arr ){
-    
-    if(eTarget.parentElement.className === "to-do-tasks"){
-                let i = toDoArr.indexOf(eTarget.innerText);
-                toDoArr.splice(i,1)
-             }
-            if(eTarget.parentElement.className === "in-progress-tasks"){
-               let i = inProgressArr.indexOf(eTarget.innerText);
-               inProgressArr.splice(i,1)
-            }
-            if(eTarget.parentElement.className === "done-tasks"){
-                    let i = doneArr.indexOf(eTarget.innerText);
-                    doneArr.splice(i,1)
-                 }
+    let oldUl = eTarget.parentElement.className; // the old ul of the task that we want to move
+    if(oldUl === "to-do-tasks"){
+        let i = toDoArr.indexOf(eTarget.innerText);
+        toDoArr.splice(i,1);
+    }
+    if(oldUl === "in-progress-tasks"){
+        let i = inProgressArr.indexOf(eTarget.innerText);
+        inProgressArr.splice(i,1);
+    }
+    if(oldUl === "done-tasks"){
+        let i = doneArr.indexOf(eTarget.innerText);
+        doneArr.splice(i,1);
+    }
     list.insertBefore(eTarget, list.firstChild); // move the task in the dom
     arr.unshift(eTarget.innerText); // move the task in the local storage
     localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-    // let i = eTarget.parentElement.id.indexOf(eTarget.innerText);
-    // eTarget.parentElement.id.splice(i,1)
-
-
-
-            // if(eTarget.parentElement.className === "to-do-tasks"){
-            //     let i = arr.indexOf(eTarget.innerText);
-            //     arr.splice(i,1)
-            //     arr.unshift(eTarget.innerText);
-            // }
-            // if(eTarget.parentElement.className === "in-progress-tasks"){
-            // let i = inProgressArr.indexOf(eTarget.innerText);
-            // arr.splice(i,1);
-            // arr.unshift(eTarget.innerText);
-            // }
-            // if(eTarget.parentElement.className === "done-tasks"){
-            //     let i = doneArr.indexOf(eTarget.innerText);
-            //     arr.splice(i,1);
-            //     arr.unshift(eTarget.innerText);
-            // }
-            // list.insertBefore(eTarget, list.firstChild); // move the task in the dom
-            // // arr.unshift(eTarget.innerText); // move the task in the local storage
-            // localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-        }
-
-
-
-function addGlobalEventListener( type , selector , callback){
-    document.addEventListener(type , e => {
-    if (e.target.matches(selector)) callback(e)
-    })
 }
-    
 
 
-
-
-
-
-
-// put the data from the local storage in the to do list 
-//  for(let i = toDoArr.length -1; i >=0; i-- ){
-//     let liEl = document.createElement("li");
-//     liEl.setAttribute("class", "task");
-//     liEl.innerText = toDoArr[i]
-//     toDoListEl.insertBefore(liEl, toDoListEl.firstChild);
-// }
-// let inProgressArr = JSON.parse(localStorage.getItem("tasks"))["in-progress"];
-// put the data from the local storage in the in progress list 
-// for(let i = inProgressArr.length -1; i >=0; i-- ){
-//     let liEl = document.createElement("li")
-//     liEl.setAttribute("class", "task");
-//     liEl.innerText = inProgressArr[i]
-//     inProgressListEl.insertBefore(liEl, inProgressListEl.firstChild);
-// }
-// let doneArr = JSON.parse(localStorage.getItem("tasks")).done;
-// put the data from the local storage in the done list
-//  for(let i = doneArr.length -1; i >=0; i-- ){
-//     let liEl = document.createElement("li")
-//     liEl.setAttribute("class", "task");
-//     liEl.innerText = doneArr[i]
-//     doneListEl.insertBefore(liEl, doneListEl.firstChild);
-// }
-// const liEl = document.createElement("li");
-// liEl.setAttribute("class", "task" );
-//if(target.id === "submit-add-to-do"){
-// if(!inputAddToDoEl.value){
-//     return alert("You must enter content");
-// }
-// liEl.innerText = inputAddToDoEl.value;
-// toDoListEl.insertBefore(liEl, toDoListEl.firstChild);
-// toDoArr.unshift(inputAddToDoEl.value);
-// localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-// inputAddToDoEl.value = ""
-//if(target.id === "submit-add-in-progress"){
-//     if(!inputAddInProgressEl.value){
-//         return alert("You must enter content");
+// show only the task with the same text of the search input
+// const searchEl = document.getElementById("search");
+// searchEl.addEventListener("keyup" , searchTasks);
+// function searchTasks(e){
+//     let allLi = document.getElementsByClassName("task");
+//     for(let list of allLi){
+//         if(!list.innerText.includes(searchEl.value)){
+//         list.style.display = "none";
+//         }else{
+//             list.style.display = "";
+//         }
 //     }
-//     liEl.innerText = inputAddInProgressEl.value;
-//     inProgressListEl.insertBefore(liEl, inProgressListEl.firstChild);
-//     inProgressArr.unshift(inputAddInProgressEl.value);
-//     localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-//     inputAddInProgressEl.value = ""
 // }
-// if(target.id === "submit-add-done"){
-//     if(!inputAddDoneEl.value){
-//         return alert("You must enter content");
-//     }
-//     liEl.innerText = inputAddDoneEl.value;
-//     doneListEl.insertBefore(liEl, doneListEl.firstChild);
-//     doneArr.unshift(inputAddDoneEl.value);
-//     localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
-//     inputAddDoneEl.value = ""
-
-// }
-
