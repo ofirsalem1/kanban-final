@@ -19,6 +19,7 @@ function addLocalStorageData(listArr , List){
     for(let i = listArr.length -1; i >=0; i-- ){
         let liEl = document.createElement("li");
         liEl.setAttribute("class", "task");
+        liEl.setAttribute("draggable" , "true");
         liEl.innerText = listArr[i];
         List.insertBefore(liEl, List.firstChild);
     }
@@ -51,6 +52,7 @@ function addTask (input , list , arr){
     }
     const liEl = document.createElement("li");
     liEl.setAttribute("class", "task");
+    liEl.setAttribute("draggable" , "true");
     liEl.innerText = input.value;
     list.insertBefore(liEl, list.firstChild);
     arr.unshift(input.value);
@@ -71,7 +73,7 @@ let indexOfOldTask; // for the splice
 // fint the correct iist of the edit text
 function findEditList(event){
     const li = event.target;
-    const buttonId = li.parentElement.parentElement.querySelector("button").id;
+    const buttonId = li.parentElement.parentElement.parentElement.querySelector("button").id;
     if(buttonId === "submit-add-to-do"){
         indexOfOldTask = toDoArr.indexOf(li.innerText); // for the splice
         li.addEventListener("blur" , findEditedArr)    
@@ -88,7 +90,7 @@ function findEditList(event){
 // send the correct arr to the saveEditText function
 function findEditedArr(event){
     const li = event.target;
-    const buttonId = li.parentElement.parentElement.querySelector("button").id
+    const buttonId = li.parentElement.parentElement.parentElement.querySelector("button").id
     if(buttonId === "submit-add-to-do"){
         saveEditText(li , toDoArr);
     }
@@ -167,3 +169,50 @@ function searchTasks(e){
         }
     }
 }
+
+
+
+let dragged;
+
+document.addEventListener("dragstart", function( event ) {
+    dragged = event.target; // store a ref. on the dragged elem
+    event.target.style.opacity = .5; // make it half transparent
+}, false);
+
+document.addEventListener("dragend", function( event ) {
+    event.target.style.opacity = ""; // reset the transparency
+}, false);
+
+ /* events fired on the drop targets */
+ document.addEventListener("dragover", function( event ) {
+    // prevent default to allow drop
+    event.preventDefault();
+}, false);
+
+document.addEventListener("dragenter", function( event ) {
+    // highlight potential drop target when the draggable element enters it
+    if ( event.target.className == "dropzone" ) {
+        event.target.style.background = "purple";
+    }
+}, false);
+
+document.addEventListener("dragleave", function( event ) {
+    // reset background of potential drop target when the draggable element leaves it
+    if ( event.target.className == "dropzone" ) {
+        event.target.style.background = "";
+    }
+}, false);
+
+document.addEventListener("drop", function( event ) {
+    // prevent default action (open as link for some elements)
+    event.preventDefault();
+    // move dragged elem to the selected drop target
+    if ( event.target.className == "dropzone" ) {
+        event.target.style.background = "";
+        dragged.parentNode.removeChild( dragged );
+        console.log(event.target.children[0]);
+        event.target.children[0].insertBefore(dragged , event.target.children[0].firstChild);
+    }
+}, false);
+
+
