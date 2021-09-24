@@ -10,31 +10,47 @@
 </head>
 <body>
     <h1 id="page-title">KANBAN</h1>
+    <div class="opening">
+        <h3>Welcome to KANBAN - Your task manager</h3>
+        <p>KANBAN has a lot of interesting features like:<br>
+            - Add tasks to 3 different lists sorted by task status<br>
+            - Move a task from one list to another by pressing the alt key with the desired list number<br>
+            - Move a task from one list to another by dragging<br>
+            - Editing a task by double-clicking on the task <br>
+             and more
+        </p>
+    </div>
     <div class="search-block">
-    <h3>Search Tasks</h3>
+    <h3 >Search Tasks</h3>
     <input type="text" id="search" placeholder="Search Task">
     </div>
         <main>
-        <section>
+            <section>
             <h2>to do</h2>
-            <ul class="to-do-tasks">
-            </ul>
+            <span class="dropzone">
+                <ul class="to-do-tasks">
+                </ul>
+            </span>
             <input type="text" id="add-to-do-task" placeholder="add to do">
             <button id="submit-add-to-do">submit</button>
         </section>
 
         <section>
-            <h2>in progress</h2>
-            <ul class="in-progress-tasks">
-            </ul>
+            <h2 >in progress</h2>
+            <span class="dropzone">
+                <ul class="in-progress-tasks">
+                </ul>
+            </span>
             <input type="text" id="add-in-progress-task" placeholder="add in progress">
             <button id="submit-add-in-progress">submit</button>
         </section>
 
         <section>
             <h2>done</h2>
-            <ul class="done-tasks">
-            </ul>
+            <span class="dropzone">
+                <ul class="done-tasks">
+                </ul>
+            </span>
             <input type="text" id="add-done-task" placeholder="add done">
             <button id="submit-add-done">submit</button>
         </section>
