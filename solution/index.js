@@ -191,14 +191,14 @@ document.addEventListener("dragend", function( event ) {
 
 document.addEventListener("dragenter", function( event ) {
     // highlight potential drop target when the draggable element enters it
-    if ( event.target.className == "dropzone" ) {
+    if ( event.target.className === "dropzone" ) {
         event.target.style.background = "purple";
     }
 }, false);
 
 document.addEventListener("dragleave", function( event ) {
     // reset background of potential drop target when the draggable element leaves it
-    if ( event.target.className == "dropzone" ) {
+    if ( event.target.className === "dropzone" ) {
         event.target.style.background = "";
     }
 }, false);
@@ -207,11 +207,35 @@ document.addEventListener("drop", function( event ) {
     // prevent default action (open as link for some elements)
     event.preventDefault();
     // move dragged elem to the selected drop target
-    if ( event.target.className == "dropzone" ) {
+    if ( event.target.className === "dropzone" ) {
         event.target.style.background = "";
+        // before the change in the dom 
+        if(dragged.parentNode.className === "to-do-tasks"){
+            let i = toDoArr.indexOf(dragged.innerText);
+            toDoArr.splice(i,1);
+        }
+        if(dragged.parentNode.className === "in-progress-tasks"){
+            let i = inProgressArr.indexOf(dragged.innerText);
+            inProgressArr.splice(i,1);
+        }
+        if(dragged.parentNode.className === "done-tasks"){
+            let i = doneArr.indexOf(dragged.innerText);
+            doneArr.splice(i,1);
+        }
+        // change in the dom
         dragged.parentNode.removeChild( dragged );
-        console.log(event.target.children[0]);
         event.target.children[0].insertBefore(dragged , event.target.children[0].firstChild);
+        // after the change in the dom 
+        if(dragged.parentNode.className === "to-do-tasks"){
+            toDoArr.unshift(dragged.innerText);
+        }
+        if(dragged.parentNode.className === "in-progress-tasks"){
+            inProgressArr.unshift(dragged.innerText);
+        }
+        if(dragged.parentNode.className === "done-tasks"){
+            doneArr.unshift(dragged.innerText);
+        }
+        localStorage.setItem("tasks" ,JSON.stringify({"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}));
     }
 }, false);
 
