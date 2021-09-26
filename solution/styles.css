@@ -37,7 +37,12 @@ h1{
 }
 .search-block{
     color: rgb(255, 255, 255);
-
+    font-weight: bolder;
+    font-size: 20px;
+    border: solid whitesmoke;
+    border-radius: 100px;  
+    width: 300px;
+    margin: auto;
 } 
 .opening{
     background-color: yellow;
