@@ -162,7 +162,7 @@ searchEl.addEventListener("keyup" , searchTasks);
 function searchTasks(e){
     let allLi = document.getElementsByClassName("task");
     for(let list of allLi){
-        if(!list.innerText.includes(searchEl.value)){
+        if(!list.innerText.toLowerCase().includes(searchEl.value.toLowerCase())){
         list.style.display = "none";
         }else{
             list.style.display = "";
@@ -240,3 +240,46 @@ document.addEventListener("drop", function( event ) {
 }, false);
 
 
+document.getElementById("save-button").addEventListener("click",saveToApi);
+async function saveToApi(){
+    const spinner = document.createElement("div");
+    spinner.classList.add("loader");
+    document.querySelector(".search-block").appendChild(spinner);
+    const response = await fetch("https://json-bins.herokuapp.com/bin/614add3a4021ac0e6c080c22",{
+        method:"PUT",
+        headers: { Accept: "application/json",
+        "Content-Type": "application/json"},
+        body: JSON.stringify({"tasks":{"todo": toDoArr,"in-progress": inProgressArr,"done": doneArr}})
+    })
+    if(response.status >= 400){
+        throw alert("Error: " + response.status);
+    }
+    document.querySelector(".search-block").removeChild(spinner);
+}   
+
+document.getElementById("load-button").addEventListener("click",loadToDom);
+async function loadToDom(){
+    const spinner = document.createElement("div");
+    spinner.classList.add("loader");
+    document.querySelector(".search-block").appendChild(spinner);
+
+    const response = await fetch("https://json-bins.herokuapp.com/bin/614add3a4021ac0e6c080c22",{
+        method:"GET",
+        headers: { Accept: "application/json",
+         "Content-Type": "application/json"},
+    })
+    if(response.status >= 400){
+        throw alert("Error: " + response.status);
+    }
+    let allLists = document.querySelectorAll("li");
+    for(let li of allLists){
+        li.remove()
+    }
+    document.querySelector(".search-block").removeChild(spinner);
+    const data = await response.json();
+    localStorage.setItem("tasks" ,JSON.stringify(data.tasks));
+    addLocalStorageData(toDoArr , toDoListEl);
+    addLocalStorageData(inProgressArr , inProgressListEl);
+    addLocalStorageData(doneArr , doneListEl);
+    window.location.reload(false); 
+}
