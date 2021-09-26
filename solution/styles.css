@@ -58,7 +58,10 @@ ul{
 
 }
 .buttons{
-    margin-left: 90%;
+    margin-left: 80%;
+}
+#clear-btn{
+    background-color: red;
 }
 .loader {
     display: inline-block;

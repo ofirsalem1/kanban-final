@@ -240,7 +240,7 @@ document.addEventListener("drop", function( event ) {
 }, false);
 
 
-document.getElementById("save-button").addEventListener("click",saveToApi);
+document.getElementById("save-btn").addEventListener("click",saveToApi);
 async function saveToApi(){
     const spinner = document.createElement("div");
     spinner.classList.add("loader");
@@ -257,7 +257,7 @@ async function saveToApi(){
     document.querySelector(".search-block").removeChild(spinner);
 }   
 
-document.getElementById("load-button").addEventListener("click",loadToDom);
+document.getElementById("load-btn").addEventListener("click",loadToDom);
 async function loadToDom(){
     const spinner = document.createElement("div");
     spinner.classList.add("loader");
@@ -271,15 +271,20 @@ async function loadToDom(){
     if(response.status >= 400){
         throw alert("Error: " + response.status);
     }
-    let allLists = document.querySelectorAll("li");
-    for(let li of allLists){
-        li.remove()
-    }
     document.querySelector(".search-block").removeChild(spinner);
     const data = await response.json();
     localStorage.setItem("tasks" ,JSON.stringify(data.tasks));
-    addLocalStorageData(toDoArr , toDoListEl);
-    addLocalStorageData(inProgressArr , inProgressListEl);
-    addLocalStorageData(doneArr , doneListEl);
     window.location.reload(false); 
+}
+// clear all tasks from the dom and options to clear the local storage to 
+document.getElementById("clear-btn").addEventListener("click",clearTasks);
+function clearTasks(){
+    let answer = confirm("Do you want to delete from the local storage as well?");
+    if(answer){
+        localStorage.setItem("tasks" ,`{"todo": [],"in-progress": [],"done": []}` );//clear from the local storag to
+    }
+    let allLists = document.querySelectorAll("li");
+    for(let li of allLists){
+        li.remove();
+    }
 }
