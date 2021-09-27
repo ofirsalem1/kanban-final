@@ -1,7 +1,5 @@
 # Task Manager App - KANBAN
 
-6. Push your work to GitHub.
-7. [Submit](#submission) your work.
 
 ### User instructions
 
