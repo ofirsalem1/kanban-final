@@ -1,0 +1,95 @@
+
+body{
+    color: rgb(0, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    text-align: center;
+    background-image: url("./img/tropi.jpeg");
+}
+main{
+    display: flex;
+}
+section{
+    border: solid ;
+    border-radius: 10%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin-top: top;
+    margin-left: auto;
+    margin-right: auto;
+}
+.to-do-section{
+    border-color: red;
+}
+.in-progress-section{
+    border-color: yellow;
+}
+.done-section{
+    border-color: green;
+}
+.task{
+    border: dotted 2px;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: rgb(179, 213, 219);
+    overflow:hidden;
+    text-align: center;
+    padding: 10px;
+}
+h2{
+    background-color: rgb(179, 213, 219);
+    border-radius: 100px;
+    padding: 10px;
+}  
+h1{
+    background-color: rgb(179, 213, 219);
+}
+.search-block{
+    color: black;
+    font-weight: bolder;
+    font-size: 20px;
+    border: solid whitesmoke;
+    border-radius: 100px;  
+    width: 300px;
+    margin: auto;
+} 
+.opening{
+    background-color: rgb(179, 213, 219);
+}
+ul{
+    padding-left: 0;
+}
+.dropzone{
+    padding: 50px;
+}
+.buttons{
+    margin-left: 80%;
+}
+#clear-btn{
+    background-color: red;
+}
+.loader {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+.loader:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+@keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}
