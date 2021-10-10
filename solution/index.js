@@ -32,6 +32,7 @@ if(!JSON.parse(localStorage.getItem("tasks")))
     addLocalStorageToDom(inProgressStorage , inProgressListEl);
     addLocalStorageToDom(doneStorage , doneListEl);
 document.addEventListener("click" , findList)
+
 //find the corect list of the button that pressed
 function findList(e){
     const target  = e.target; // the button that pressed
@@ -48,19 +49,46 @@ function findList(e){
         addTask(inputAddDoneEl , doneListEl , doneStorage);
     }
 }
+
+/*--------------------------------------------------------*/
+//check if the text is not empty
+function validateTask(taskText){
+    if(!taskText)
+    {
+        throw alert("You must enter content");
+    }
+    return taskText;
+}
+/*--------------------------------------------------------*/
+
+/*--------------------------------------------------------*/
+//clear the tasks from the dom
+function clearDom(){
+    for(let li of document.querySelectorAll("li"))
+    {
+        li.remove();
+    }
+}
+/*--------------------------------------------------------*/
 // add the task to the correct list and to the local storage
 function addTask (input , domList , storageList){
-    if(!input.value)
-    {
-        return alert("You must enter content");
-    }
-    const liEl = document.createElement("li");
-    liEl.setAttribute("class", "task");
-    liEl.setAttribute("draggable" , "true");
-    liEl.innerText = input.value;
-    domList.insertBefore(liEl, domList.firstChild);
-    storageList.unshift(input.value);
+    
+    // if(!input.value)
+    // {
+    //     return alert("You must enter content");
+    // }
+    // const liEl = document.createElement("li");
+    // liEl.setAttribute("class", "task");
+    // liEl.setAttribute("draggable" , "true");
+    // liEl.innerText = validateTask(input.value);
+    // domList.insertBefore(liEl, domList.firstChild);
+    storageList.unshift(validateTask(input.value));
     localStorage.setItem("tasks" ,JSON.stringify(localStorageObj));
+    clearDom();
+    addLocalStorageToDom(toDoStorage , toDoListEl);
+    addLocalStorageToDom(inProgressStorage , inProgressListEl);
+    addLocalStorageToDom(doneStorage , doneListEl);
+
     input.value = "";//clear the input value after submit
 }
 
