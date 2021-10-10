@@ -299,17 +299,17 @@ async function loadToDom(){
     localStorage.setItem("tasks" ,JSON.stringify(data.tasks));
     window.location.reload(false); 
 }
+
+
 // clear all tasks from the dom and options to clear the local storage to 
 document.getElementById("clear-btn").addEventListener("click",clearTasks);
 function clearTasks(){
-    let answer = confirm("Do you want to delete from the local storage as well?");
-    if(answer)
+    if(confirm("Do you want to delete from the local storage as well?"))
     {
         localStorageObj = {"todo": [],"in-progress": [],"done": []}
         localStorage.setItem("tasks" ,`{"todo": [],"in-progress": [],"done": []}` );//clear from the local storag to
     }
-    let allLists = document.querySelectorAll("li");
-    for(let li of allLists)
+    for(let li of document.querySelectorAll("li"))
     {
         li.remove();
     }
