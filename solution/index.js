@@ -70,27 +70,20 @@ function clearDom(){
     }
 }
 /*--------------------------------------------------------*/
+
+/*--------------------------------------------------------*/
 // add the task to the correct list and to the local storage
-function addTask (input , domList , storageList){
-    
-    // if(!input.value)
-    // {
-    //     return alert("You must enter content");
-    // }
-    // const liEl = document.createElement("li");
-    // liEl.setAttribute("class", "task");
-    // liEl.setAttribute("draggable" , "true");
-    // liEl.innerText = validateTask(input.value);
-    // domList.insertBefore(liEl, domList.firstChild);
+function addTask (input , domList , storageList){   
     storageList.unshift(validateTask(input.value));
     localStorage.setItem("tasks" ,JSON.stringify(localStorageObj));
-    clearDom();
-    addLocalStorageToDom(toDoStorage , toDoListEl);
-    addLocalStorageToDom(inProgressStorage , inProgressListEl);
-    addLocalStorageToDom(doneStorage , doneListEl);
-
-    input.value = "";//clear the input value after submit
+    window.location.reload(false); 
+    // clearDom();
+    // addLocalStorageToDom(toDoStorage , toDoListEl);
+    // addLocalStorageToDom(inProgressStorage , inProgressListEl);
+    // addLocalStorageToDom(doneStorage , doneListEl);
+    // input.value = "";//clear the input value after submit
 }
+/*--------------------------------------------------------*/
 
 document.addEventListener("click" , textEditable);
 // make the text list editable
@@ -209,7 +202,8 @@ function searchTasks(){
         if(!list.innerText.toLowerCase().includes(searchEl.value.toLowerCase()))
         {
         list.style.display = "none";
-        }else
+        }
+        else
         {
             list.style.display = "";
         }
